@@ -36,6 +36,7 @@ def saveVideo(videoDict, page):
 	video.image_url = videoDict['picture']
 	video.fbid = videoDict['id']
 	video.page_url = "https://www.facebook.com" + videoDict['permalink_url']
+	video.host_id = page.fbid
 	video.recipe_text = ''
 	video.description = videoDict['description']
 	video.host_page = page

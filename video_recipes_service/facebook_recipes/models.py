@@ -24,6 +24,7 @@ class Facebook_Page(models.Model):
 
 class Video(models.Model):
     created = models.DateTimeField(null=True, blank=True)
+    host_id = models.TextField()
     image_url = models.TextField()
     fbid = models.TextField()
     page_url = models.TextField()
