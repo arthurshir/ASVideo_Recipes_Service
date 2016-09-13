@@ -39,6 +39,7 @@ def saveVideo(videoDict, page):
 	video.host_id = page.fbid
 	video.recipe_text = ''
 	video.description = videoDict['description']
+	video.name = videoDict['description'].split('\n', 1)[0]
 	video.host_page = page
 
 	video.save()

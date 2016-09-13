@@ -30,6 +30,7 @@ class Video(models.Model):
     page_url = models.TextField()
     recipe_text = models.TextField()
     description = models.TextField()
+    name = models.TextField()
     host_page = models.ForeignKey(Facebook_Page, on_delete=models.CASCADE, null=True, blank=True)
 
     @property
