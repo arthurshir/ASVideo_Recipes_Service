@@ -3,7 +3,14 @@ import json
 from datetime import timedelta, datetime
 from django.utils.dateparse import parse_datetime
 from facebook_recipes.models import Video, Facebook_Page
+import pytz
 
+epoch = pytz.utc.localize(datetime.utcfromtimestamp(0))
+
+def unix_time_millis(dt):
+	# dt.replace(tzinfo=None)
+	print("Print dates" , dt, epoch)
+	return (dt - epoch).total_seconds() * 1000.0
 
 def fetchVideos(pageid):
 	graph = facebook.GraphAPI(access_token='637343989764348|UIcj47P3UIq9EpbfOsHzd81Qln0', version='2.7')
@@ -33,6 +40,7 @@ def saveVideo(videoDict, page):
 	except Video.DoesNotExist:
 		video = Video()
 	video.created = parse_datetime(videoDict['created_time'])
+	video.created_ms = unix_time_millis(video.created)
 	video.image_url = videoDict['picture']
 	video.fbid = videoDict['id']
 	video.page_url = "https://www.facebook.com" + videoDict['permalink_url']

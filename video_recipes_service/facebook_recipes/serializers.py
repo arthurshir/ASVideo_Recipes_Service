@@ -4,7 +4,7 @@ from facebook_recipes.models import Video, Facebook_Page, LANGUAGE_CHOICES, STYL
 class VideoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Video
-        fields = ('created', 'image_url', 'fbid', 'page_url', 'recipe_text', 'description', 'host_id', 'name')
+        fields = ('created', 'created_ms', 'image_url', 'fbid', 'page_url', 'recipe_text', 'description', 'host_id', 'name')
 
 class FbPageSerializer(serializers.ModelSerializer):
     class Meta:

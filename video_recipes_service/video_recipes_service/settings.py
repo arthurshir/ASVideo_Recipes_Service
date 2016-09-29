@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
+    'django_filters',
     'rest_framework',
     'snippets.apps.SnippetsConfig',
     'facebook_recipes',
@@ -78,6 +79,10 @@ WSGI_APPLICATION = 'video_recipes_service.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 # Setup: http://www.marinamele.com/taskbuster-django-tutorial/install-and-configure-posgresql-for-django
+# CREATE DATABASE video_recipes_service;
+# CREATE ROLE video_recipes_service WITH LOGIN PASSWORD '123456';
+# GRANT ALL PRIVILEGES ON DATABASE video_recipes_service TO video_recipes_service;
+# ALTER USER video_recipes_service CREATEDB;
 
 DATABASES = {
     'default': {
@@ -140,5 +145,7 @@ STATIC_URL = '/static/'
 #         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
 #     ]
 # }
-
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',)
+}
 
