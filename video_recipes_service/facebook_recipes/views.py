@@ -12,19 +12,29 @@ pageList = ['1614251518827491', '1737181656494507', '126518947372806', '14438733
 
 # filters.LOOKUP_TYPES = ['gt', 'gte']
 
-# class VideoFilter(filters.FilterSet):
-#     timestamp_gte = django_filters.DateTimeFilter(name="created", lookup_expr='gte')
-#     class Meta:
-#         model = Video
-#         fields = ['created', 'created_gte']
+class VideoFilter(filters.FilterSet):
+	created_ms__gt = django_filters.NumberFilter(name='created', lookup_expr='gt')
+	class Meta:
+		model = Video
+		fields = {
+			'created_ms': ['gt']
+		}
 
 class VideoList(generics.ListAPIView):
-	queryset = Video.objects.all()
 	serializer_class = VideoSerializer
-	# filter_class = VideoFilter
-	filter_fields = ['created_ms']
-	filter_backends = (filters.DjangoFilterBackend,)
-    
+	def get_queryset(self):
+		"""
+		This view should return a list of all the purchases for
+		the user as determined by the username portion of the URL.
+		"""
+		queryset = Video.objects.all()
+		created_ms_f = self.request.query_params.get('created_ms_f', None)
+		if created_ms_f is not None:
+			queryset = queryset.filter(created_ms__gte=created_ms_f)
+		return queryset
+
+
+
 
 class TriggerVideoFetch(mixins.ListModelMixin, generics.GenericAPIView):
     queryset = Video.objects.all()
